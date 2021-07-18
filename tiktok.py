@@ -4,11 +4,12 @@ import telebot
 from time import sleep
 
 # Бот
-token = ''
+token = '1718863223:AAEHyeVrBqoAemDoU34HslIDu-hPcVdY2ZM'
 bot = telebot.TeleBot(token, threaded=True)
 
 
-# Класс берет аккаунт в тиктоке и сохраняет рандомное видео из аккаунта локально в проект
+# Класс берет аккаунт в тиктоке и сохраняет
+# рандомное видео из аккаунта локально в проект
 # и затем отправляет пользователю
 class TikTokParser:
 
@@ -21,15 +22,18 @@ class TikTokParser:
     def __call__(self):
         account_videos = self.api.by_username(username=self.user)
         random_video_num = randint(0, len(account_videos) - 1)
-        tiktok_video = self.api.get_video_by_tiktok(data=account_videos[random_video_num])
+        tiktok_video = self.api.get_video_by_tiktok(
+            data=account_videos[random_video_num])
         with open('video.mp4', 'wb') as f:
             f.write(tiktok_video)
         with open('video.mp4', 'rb') as f:
             bot.send_video(self.user_id, f, timeout=500)
 
 
-# Костыль, который в случае, если есть юзеры, которым нужно отправить тикток видео
-# вызывает парсер, который это делает. Опять-таки жуткий костыль но, подругому было никак
+# Костыль, который в случае, если есть юзеры, которым
+# нужно отправить тикток видео
+# вызывает парсер, который это делает.
+# Опять-таки жуткий костыль но, подругому было никак
 while True:
     users = open('id.txt', 'r+')
     for user in users:
