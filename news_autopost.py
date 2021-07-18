@@ -6,9 +6,9 @@ import time
 import sqlite3
 
 
-SLEEP_TIME = 30
+SLEEP_TIME = 20
 
-token = ''
+token = '1718863223:AAEHyeVrBqoAemDoU34HslIDu-hPcVdY2ZM'
 bot = telebot.TeleBot(token, threaded=True)
 
 conn = sqlite3.connect('DataBase/database.db', check_same_thread=False)
@@ -43,7 +43,8 @@ class RandomNews:
         inner_soup = BeautifulSoup(inner_resp.content, 'html.parser')
         content = inner_soup.find('div', 'lenta_news')
 
-        # Выделели заголовок новости, перешли по ссылке и взяли сам текст новости,
+        # Выделели заголовок новости, перешли по
+        # ссылке и взяли сам текст новости,
         # а также ссылку на саму новость и попытались отправить
         try:
             return [random_news.text, link, content.p.text]
@@ -51,7 +52,8 @@ class RandomNews:
             return None
 
 
-# Цикл, который с интервалом в SLEEP_TIME присылает всем пользователям рандомную новость
+# Цикл, который с интервалом в SLEEP_TIME
+# присылает всем пользователям рандомную новость
 # вместе с небольшой вырезкой текста из самой новости
 while True:
     random_news_auto_post = RandomNews()
@@ -67,12 +69,14 @@ while True:
     for row in rows:
         message = post[0] + '\n\n' + post[2] + '\n' + post[1]
         user_id = row[0]
-        # Пытаемся отправить новость, если получаем исключение, значит пользователь отписался от бота
+        # Пытаемся отправить новость, если получаем исключение,
+        # значит пользователь отписался от бота
         # и нужно удалить его из БД
         try:
             bot.send_message(user_id, message)
         except telebot.apihelper.ApiException:
-            sqlite_delete_query = f'DELETE from user_ids where user_id = {user_id}'
+            sqlite_delete_query =\
+                f'DELETE from user_ids where user_id = {user_id}'
             cursor.execute(sqlite_delete_query)
             conn.commit()
 
