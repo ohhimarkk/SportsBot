@@ -7,11 +7,11 @@ from time import sleep
 from athletes_quotes_parser import QuotesParser
 
 # Подключаю бота
-token = '1718863223:AAEHyeVrBqoAemDoU34HslIDu-hPcVdY2ZM'
-bot = telebot.TeleBot(token, threaded=True, num_threads=5)
+token = ''
+bot = telebot.TeleBot(token, threaded=True)
 
 # Подключаю sqlite базу, в которой храню пользователей бота
-conn = sqlite3.connect('DataBase/database.db', check_same_thread=False)
+conn = sqlite3.connect('DataBase/database.db')
 cursor = conn.cursor()
 
 
