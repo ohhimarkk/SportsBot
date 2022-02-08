@@ -8,10 +8,10 @@ import sqlite3
 
 SLEEP_TIME = 20
 
-token = '1718863223:AAEHyeVrBqoAemDoU34HslIDu-hPcVdY2ZM'
+token = ''
 bot = telebot.TeleBot(token, threaded=True)
 
-conn = sqlite3.connect('DataBase/database.db', check_same_thread=False)
+conn = sqlite3.connect('DataBase/database.db')
 cursor = conn.cursor()
 # Sql комманда для работы с таблицей
 sqlite_select_query = 'SELECT * from user_ids'
